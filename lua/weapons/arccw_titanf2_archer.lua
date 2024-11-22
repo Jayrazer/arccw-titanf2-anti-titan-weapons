@@ -75,16 +75,17 @@ SWEP.Num = 1 -- number of shots per trigger pull.
 SWEP.Firemodes = {
     {
         Mode = 1,
+		PrintName = "Single Shot"
     }
 }
 
-SWEP.NPCWeaponType = "weapon_pistol"
-SWEP.NPCWeight = 100
+SWEP.NPCWeaponType = "weapon_rpg"
+SWEP.NPCWeight = 200
 
 SWEP.AccuracyMOA = 5
 SWEP.HipDispersion = 200 -- inaccuracy added by hip firing.
-SWEP.MoveDispersion = 150
-SWEP.JumpDispersion = 300
+SWEP.MoveDispersion = 50
+SWEP.JumpDispersion = 75
 
 SWEP.SightedSpeedMult = 0.9
 
@@ -165,7 +166,7 @@ SWEP.CustomizeAng = Angle(40, 0, 0)
 
 SWEP.BarrelLength = 8
 
--- SWEP.AttachmentElements = {
+SWEP.AttachmentElements = {
     -- ["sight"] = {
         -- VMBodygroups = {
             -- {ind = 1, bg = 1},
@@ -176,14 +177,14 @@ SWEP.BarrelLength = 8
             -- {ind = 2, bg = 1},
         -- },
     -- },
-    -- ["skin"] = {
-        -- VMSkin = 1,
-        -- WMSkin = 1,
-    -- },
--- }
+    ["skin"] = {
+        VMSkin = 1,
+        WMSkin = 1,
+    },
+}
 -- SWEP.GuaranteeLaser = true
 
--- SWEP.Attachments = {
+SWEP.Attachments = {
     -- {
         -- PrintName = "Optic",
         -- DefaultAttName = "Iron Sights",
@@ -218,12 +219,12 @@ SWEP.BarrelLength = 8
         -- PrintName = "Hop-up",
         -- Slot = {"apex_hopup_qdraw", "apex_hopup_hp", "apex_hopup_selfire3"}
     -- },
-    -- {
-        -- PrintName = "Skin",
-        -- Slot = {"skin_apex"},
-        -- DefaultAttName = "Default",
-        -- FreeSlot = true
-    -- },
+    {
+        PrintName = "Skin",
+        Slot = {"skin_apex"},
+        DefaultAttName = "Default",
+        FreeSlot = true
+    },
     -- {
         -- PrintName = "Charm",
         -- Slot = "charm",
@@ -252,7 +253,7 @@ SWEP.BarrelLength = 8
 		-- VMScale = Vector(1, 1, 1),
 		-- WMScale = Vector(1, 1, 1),
     -- },
--- }
+}
 
 -- function SWEP:Hook_TranslateAnimation(anim)
     -- if anim == "fire_iron" then
