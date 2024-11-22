@@ -27,6 +27,8 @@ ENT.Damage = 150
 ENT.Radius = 300
 ENT.ImpactDamage = nil
 
+ENT.DisableBallistics = true
+
 if SERVER then
     local gunship = {["npc_combinegunship"] = true, ["npc_combinedropship"] = true}
 
@@ -77,6 +79,7 @@ if SERVER then
     function ENT:Detonate()
         if !self:IsValid() then return end
         if self.Defused then return end
+		local dmginfo = DamageInfo()
         local effectdata = EffectData()
             effectdata:SetOrigin( self:GetPos() )
 
@@ -99,6 +102,8 @@ if SERVER then
                 Dir = self.HitVelocity or self:GetVelocity(),
                 Src = self:GetPos(),
                 Callback = function(att, tr, dmg)
+					dmginfo:SetDamageType(DMG_AIRBOAT + DMG_SNIPER)
+					dmginfo:SetDamageForce(self:GetForward() * self.Force)
                     util.Decal("Scorch", tr.StartPos, tr.HitPos - (tr.HitNormal * 16), self)
                 end
             })
@@ -173,6 +178,7 @@ if SERVER then
             dmginfo:SetDamageType(bit.bor(dmginfo:GetDamageType(), DMG_AIRBOAT))
         end
     end)
+	
 end
 
 function ENT:Defuse()
