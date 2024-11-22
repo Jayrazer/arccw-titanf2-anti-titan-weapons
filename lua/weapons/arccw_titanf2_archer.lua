@@ -70,7 +70,7 @@ SWEP.RecoilSide = 0.075
 SWEP.RecoilRise = 0.15
 SWEP.RecoilPunch = 3.5
 
-SWEP.Delay = 60 / 420 -- 60 / RPM.
+SWEP.Delay = 60 / 600 -- 60 / RPM.
 SWEP.Num = 1 -- number of shots per trigger pull.
 SWEP.Firemodes = {
     {
@@ -167,16 +167,6 @@ SWEP.CustomizeAng = Angle(40, 0, 0)
 SWEP.BarrelLength = 8
 
 SWEP.AttachmentElements = {
-    -- ["sight"] = {
-        -- VMBodygroups = {
-            -- {ind = 1, bg = 1},
-        -- },
-    -- },
-    -- ["sight_mounth"] = {
-        -- VMBodygroups = {
-            -- {ind = 2, bg = 1},
-        -- },
-    -- },
     ["skin"] = {
         VMSkin = 1,
         WMSkin = 1,
@@ -185,36 +175,6 @@ SWEP.AttachmentElements = {
 -- SWEP.GuaranteeLaser = true
 
 SWEP.Attachments = {
-    -- {
-        -- PrintName = "Optic",
-        -- DefaultAttName = "Iron Sights",
-        -- Slot = "apex_sights", -- what kind of attachments can fit here, can be string or table
-        -- Bone = "ja_ads_attachment", -- relevant bone any attachments will be mostly referring to
-        -- Offset = {
-            -- vpos = Vector(0, 0, 0), -- offset that the attachment will be relative to the bone
-            -- vang = Angle(90, 0, -90),
-            -- wpos = Vector(3.4, 1.5, -4.0),
-            -- wang = Angle(-10, 0, 180)
-        -- },
-        -- InstalledEles = {"sight", "sight_mounth"},
-        -- CorrectivePos = Vector(1.22,0,-0.8),
-        -- CorrectiveAng = Angle(-1.045, -0.682, 1.999)
-    -- },
-    -- {
-        -- PrintName = "Muzzle",
-        -- Slot = {"apex_muzzle_pistols"},
-        -- Bone = "def_c_suppressor",
-        -- Offset = {
-            -- vpos = Vector(0, 0, 0),
-            -- vang = Angle(90, 0, -90),
-            -- wpos = Vector(20, 1.0, -5.8),
-            -- wang = Angle(-10, 0, 180)
-        -- },
-    -- },
-    -- {
-        -- PrintName = "Magazine",
-        -- Slot = {"apex_mag_light1"}
-    -- },
     -- {
         -- PrintName = "Hop-up",
         -- Slot = {"apex_hopup_qdraw", "apex_hopup_hp", "apex_hopup_selfire3"}
@@ -225,34 +185,34 @@ SWEP.Attachments = {
         DefaultAttName = "Default",
         FreeSlot = true
     },
-    -- {
-        -- PrintName = "Charm",
-        -- Slot = "charm",
-        -- FreeSlot = true,
-        -- Bone = "ja_ads_attachment", -- relevant bone any attachments will be mostly referring to
-        -- Offset = {
-            -- vpos = Vector(0.5, 1, 3.5), -- offset that the attachment will be relative to the bone
-            -- vang = Angle(90, 0, -90),
-            -- wpos = Vector(8.9, 2, -4.5),
-            -- wang = Angle(-10, 0, 180)
-        -- },
-		-- VMScale = Vector(0.3, 0.3, 0.3),
-		-- WMScale = Vector(0.3, 0.3, 0.3),
-    -- },
-    -- {
-        -- PrintName = "Stats",
-        -- Slot = {"killcounter2","killcounter"},
-        -- FreeSlot = true,
-        -- Bone = "def_c_bolt", -- relevant bone any attachments will be mostly referring to
-        -- Offset = {
-            -- vpos = Vector(0.6, 0.2, -1), -- offset that the attachment will be relative to the bone
-            -- vang = Angle(90, 0, -90),
-            -- wpos = Vector(5.3, 2.1, -3.7),
-            -- wang = Angle(-10, 0, 180)
-        -- },
-		-- VMScale = Vector(1, 1, 1),
-		-- WMScale = Vector(1, 1, 1),
-    -- },
+    {
+        PrintName = "Charm",
+        Slot = "charm",
+        FreeSlot = true,
+        Bone = "weapon_bone", -- relevant bone any attachments will be mostly referring to
+        Offset = {
+            vpos = Vector(1.8, -9.88, 0.5), -- offset that the attachment will be relative to the bone
+            vang = Angle(90, 0, -35),
+            wpos = Vector(1.2, 3, -10.9),
+            wang = Angle(-10, 0, 215)
+        },
+		VMScale = Vector(0.3, 0.3, 0.3),
+		WMScale = Vector(0.3, 0.3, 0.3),
+    },
+    {
+        PrintName = "Stats",
+        Slot = {"killcounter2","killcounter"},
+        FreeSlot = true,
+        Bone = "weapon_bone", -- relevant bone any attachments will be mostly referring to
+        Offset = {
+            vpos = Vector(4.1, -8.5, 1.8), -- offset that the attachment will be relative to the bone
+            vang = Angle(90, 0, -75),
+            wpos = Vector(3, 5, -10.3),
+            wang = Angle(-10, 0, 195)
+        },
+		VMScale = Vector(1, 1, 1),
+		WMScale = Vector(1, 1, 1),
+    },
 }
 
 -- function SWEP:Hook_TranslateAnimation(anim)
@@ -304,6 +264,7 @@ SWEP.Animations = {
     },
     ["fire_sight"] = {
         Source = "fire",
+		Time = 0.15,
     },
     ["exit_sight"] = {
         Source = "ads_out",
@@ -327,7 +288,7 @@ SWEP.Animations = {
         TPAnim = ACT_HL2MP_GESTURE_RELOAD_AR2,
 		Framerate = 30,
         SoundTable = {
-            {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_01A.wav", t = 2 / 30},
+            {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_02A.wav", t = 1 / 30},
             {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_01B.wav", t = 12 / 30},
             {p = 100, s = "weapons/archer/wpn_archer_1p_reload_canisterin_2ch_v1_01.wav", t = 65 / 30},
     },
