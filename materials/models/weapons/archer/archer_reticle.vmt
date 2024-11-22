@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+    "$basetexture" "models\weapons\archer\archer_target_ring"
+	"$translucent" "1"
+}

@@ -1,7 +1,6 @@
--- if CLIENT then
-    -- killicon.Add( "arccw_apex_p2020", "VGUI/apex_killicon_p2020", Color(251, 85, 25, 255))
-    -- SWEP.WepSelectIcon = surface.GetTextureID("VGUI/apex_p2020")
--- end
+if CLIENT then
+	SWEP.WepSelectIcon = surface.GetTextureID("VGUI/archer_at")
+end
 
 SWEP.ProneMod_DisableTransitions = true
 
@@ -131,14 +130,14 @@ SWEP.MuzzleEffectAttachment = 1 -- which attachment to put the muzzle on
 SWEP.CaseEffectAttachment = 2 -- which attachment to put the case effect on
 
 SWEP.IronSightStruct = {
-    Pos = Vector(0, 0, 0),
+    Pos = Vector(0.005, 0, -0.05),
     Ang = Angle(0, 0, 0),
     Magnification = 1.5,
         Midpoint = { -- Where the gun should be at the middle of it's irons
         Pos = Vector(0, 0, 0),
         Ang = Angle(0, 0, 0),
     },
-	 CrosshairInSights = true,
+	 CrosshairInSights = false,
 }
 
 
