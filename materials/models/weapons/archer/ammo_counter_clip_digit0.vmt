@@ -1,4 +1,4 @@
-"Basic"
+"VertexLitGeneric"
 {
 	"$surfaceprop" "plastic"
 
@@ -13,30 +13,12 @@
 	"$atlasFrames" "[16 1]"
 	"$atlasFrameStart" "[0 0]"
 	
-	"Proxies"
+	Proxies // proxies are listed inside this block
 	{
-		"ClipAmmo"
+		ArcCW_AMMO
 		{
-			"resultVar" "$ammo"
-		}
-	
-		"NumericCounterAtlasFrame"
-		{
-			"value"						"$ammo"
-			"digitIndex"				"0"
-			"resultAtlasFrameIndexVar"	"$atlasFrameStart[0]"
-		}
-	
-		"TextureAtlas"
-		{
-			"frameSize"		"$atlasFrames"
-			"frameStart"	"$atlasFrameStart"
-			"resultVar"		"$basetexturetransform"
-		}
-
-		"ClipAmmoColor"
-		{
-			"resultVar"			"$color"
+			resultVar 1
+			prefixstring "ammocounter/plate_p2020/numbers_plate"
 		}
 	}
 }

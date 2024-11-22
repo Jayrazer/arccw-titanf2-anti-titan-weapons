@@ -262,6 +262,8 @@ SWEP.BarrelLength = 8
     -- end
 -- end
 
+SWEP.CanBash = false
+
 SWEP.Animations = {
     ["idle"] = {
         Source = "idle",

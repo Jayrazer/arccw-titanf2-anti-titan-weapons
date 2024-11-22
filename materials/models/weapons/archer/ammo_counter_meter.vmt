@@ -1,4 +1,4 @@
-"Basic"
+"VertexLitGeneric"
 {
 	"$surfaceprop" "default"
 
@@ -14,26 +14,10 @@
 	
 	"Proxies"
 	{
-		"RemainingAmmo"
+	ArcCW_AMMO
 		{
-			"resultVar" "$remainingAmmo"
-		}
-		
-		"MaxCarryAmmo"
-		{
-			"resultVar" "$maxCarryAmmo"
-		}
-		
-		"ProgressBar"
-		{
-			"value"			"$remainingAmmo"
-			"max"			"$maxCarryAmmo"
-			"resultVar"		"$basetexturetransform"
-		}
-
-		"RemainingAmmoColor"
-		{
-			"resultVar"			"$color"
+			resultVar 2
+			prefixstring "ammocounter/plate_p2020/numbers_plate"
 		}
 	}
 }
