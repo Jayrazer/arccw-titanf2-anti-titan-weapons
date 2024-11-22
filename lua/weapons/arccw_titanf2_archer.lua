@@ -36,7 +36,7 @@ SWEP.ViewModelFOV = 70
 SWEP.ShootEntity = "arccw_titanf2_archer_rocket"
 SWEP.Damage = 650
 SWEP.DamageMin = 650
-SWEP.MuzzleVelocity = 4000
+SWEP.MuzzleVelocity = 3200
 
 SWEP.Apex_Balance = {
     [1] = {

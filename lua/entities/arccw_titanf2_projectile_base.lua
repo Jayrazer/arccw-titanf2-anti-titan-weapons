@@ -51,7 +51,7 @@ if SERVER then
         self.SpawnTime = CurTime()
 
         if self.SmokeTrail then
-            util.SpriteTrail(self, 0, Color( 255 , 255 , 255 ), false, 6, 6, 0.5, 1 / (6 + 6) * 0.5, "particle/particle_smokegrenade")
+            util.SpriteTrail(self, 0, Color( 255 , 255 , 255 ), false, 6, 6, 0.7, 1 / (6 + 6) * 0.5, "particle/particle_smokegrenade1")
         end
     end
 
