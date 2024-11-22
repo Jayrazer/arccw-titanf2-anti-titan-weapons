@@ -4,32 +4,21 @@
     "$bumpmap" "models\weapons\archer\archer_at_n"
     "$phongexponenttexture" "models\weapons\archer\archer_at_e"
 
-    /////////////////
-    "$color2" "[2 2 2]"                                     //do not touch this
-    "$blendtintbybasealpha" "0"                             //do not touch this
-    /////////////////
+    "$color2" "[0.8 0.8 0.8]"
+    "$blendtintbybasealpha" "1"
+	
+	"$phong"					"1"
+	"$phongboost"				"5"
+	"$phongfresnelranges"		"[0.25 0.5 1]"
+	"$normalmapalphaenvmapmask" 1
 
-    "$phong" "1"
-    "$phongboost" "1"
-    "$phongalbedotint" "1"
-    "$phongalbedoboost" "10"                                //toy around with this
-    "$phongfresnelranges" "[1 0.1 0]"
+	"$rimlight"					"1"
+	"$rimlightexponent"			"80"	
+	"$rimlightboost"			".2"
+	"$rimmask"					"1"
+	"$nocull"					"1"
 
-    //rimlight doesn't properly show in hlmv, make sure you're changing these values in game
-    "$rimlight" "1"
-    "$rimlightexponent" "100"
-    "$rimmask" "1"
-    "$rimlightboost" "1"
-       
-    /////////////////
-    "$normalmapalphaenvmapmask" "1"                         //do not touch this
-    /////////////////
+	"$envmap"					"env_cubemap"
+	"$envmaptint"				"[ .13 .13 .13 ]"             
 
-    "$envmap" "models\weapons\specularity_00"
-    "$envmaptint" "[0.102 0.102 0.102]"                 
-
-    //remove this if not using MWB
-    "Proxies"
-    {
-    }
 }
