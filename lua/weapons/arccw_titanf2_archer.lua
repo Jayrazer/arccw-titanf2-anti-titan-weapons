@@ -90,12 +90,16 @@ SWEP.JumpDispersion = 300
 
 SWEP.SightedSpeedMult = 0.9
 
-SWEP.Primary.Ammo = "apex_light" -- what ammo type the gun uses
+SWEP.Primary.Ammo = "rpg_round" -- what ammo type the gun uses
 
 SWEP.ShootVol = 120 -- volume of shoot sound
 SWEP.ShootPitch = 100 -- pitch of shoot sound
 
-SWEP.ShootSound = "ArcCW_APEX.P2020.Fire"
+SWEP.ShootSound = {
+	"weapons/archer/wpn_archer_1p_wpnfire_core_2ch_v1_01.wav",
+	"weapons/archer/wpn_archer_1p_wpnfire_core_2ch_v1_02.wav",
+	"weapons/archer/wpn_archer_1p_wpnfire_core_2ch_v1_03.wav",
+	}
 SWEP.ShootDrySound = "ArcCW_APEX.Pistol_Dry_D"
 SWEP.ShootSoundSilenced = ""
 SWEP.DistantShootSound = ""
@@ -130,7 +134,7 @@ SWEP.CaseEffectAttachment = 2 -- which attachment to put the case effect on
 SWEP.IronSightStruct = {
     Pos = Vector(0, 0, 0),
     Ang = Angle(0, 0, 0),
-    Magnification = 1,
+    Magnification = 1.5,
         Midpoint = { -- Where the gun should be at the middle of it's irons
         Pos = Vector(0, 0, 0),
         Ang = Angle(0, 0, 0),
@@ -161,6 +165,8 @@ SWEP.CustomizePos = Vector(4, 0, 3)
 SWEP.CustomizeAng = Angle(0, 10, 20)
 
 SWEP.BarrelLength = 8
+
+SWEP.CrosshairInSights = true
 
 -- SWEP.AttachmentElements = {
     -- ["sight"] = {
@@ -266,12 +272,12 @@ SWEP.Animations = {
     ["idle_sprint"] = {
         Source = "sprint",
     },
-    -- ["enter_sprint"] = {
-        -- Source = "sprint_in",
-    -- },
-    -- ["exit_sprint"] = {
-        -- Source = "sprint_out",
-    -- },
+    ["enter_sprint"] = {
+        Source = "sprint_in",
+    },
+    ["exit_sprint"] = {
+        Source = "sprint_out",
+    },
     ["ready"] = {
         Source = "draw",
         SoundTable = {
@@ -313,8 +319,9 @@ SWEP.Animations = {
         TPAnim = ACT_HL2MP_GESTURE_RELOAD_AR2,
 		Framerate = 30,
         SoundTable = {
-            {p = 100, s = "weapons/p2020/smartpistol_reload_magout_st_01.ogg", t = 9 / 30},
-            {p = 100, s = "weapons/p2020/smartpistol_reload_magin_st_01.ogg", t = 24 / 30}
+            {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_01A.wav", t = 2 / 30},
+            {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_01B.wav", t = 12 / 30},
+            {p = 100, s = "weapons/archer/wpn_archer_1p_reload_canisterin_2ch_v1_01.wav", t = 65 / 30},
     },
     },
 }
