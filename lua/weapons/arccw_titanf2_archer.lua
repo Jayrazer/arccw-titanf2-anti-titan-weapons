@@ -12,7 +12,7 @@ SWEP.AdminOnly = false
 
 SWEP.PrintName = "Archer AT"
 SWEP.Trivia_Class = "Rocket Launcher"
-SWEP.Trivia_Desc = "Heavy rocket launcher developed during the Frontier war as an infantry-portable anti-titan weapon. This particular version comes standard with dumbfire anti-infantry rounds and lacks the lock-on capabilities of the anti-titan version."
+SWEP.Trivia_Desc = "Heavy rocket launcher developed during the Frontier war as an infantry-portable anti-titan weapon. This particular version comes standard with dumbfire anti-infantry rounds and lacks the lock-on capabilities of the anti-titan version. \nNeeds to be aimed in order to fire."
 SWEP.Trivia_Manufacturer = "Brockhaurd Manufacturing"
 
 SWEP.Slot = 4
