@@ -12,7 +12,7 @@ SWEP.AdminOnly = false
 
 SWEP.PrintName = "Archer AT"
 SWEP.Trivia_Class = "Rocket Launcher"
-SWEP.Trivia_Desc = "Heavy rocket launcher originally developed as a lock-on anti-Titan weapon. This anti-infantry version is direct-fire by default."
+SWEP.Trivia_Desc = "Heavy rocket launcher developed during the Frontier war as an infantry-portable anti-titan weapon. This particular version comes standard with dumbfire anti-infantry rounds and lacks the lock-on capabilities of the anti-titan version."
 SWEP.Trivia_Manufacturer = "Brockhaurd Manufacturing"
 
 SWEP.Slot = 4
@@ -34,12 +34,10 @@ SWEP.MirrorVMWM = false
 
 SWEP.ViewModelFOV = 70
 
-
-SWEP.Damage = 18
-SWEP.DamageMin = 18
-SWEP.Range = 75
-SWEP.Penetration = 6
-SWEP.PhysBulletMuzzleVelocity = 18500 * ArcCW.HUToM
+SWEP.ShootEntity = "arccw_titanf2_archer_rocket"
+SWEP.Damage = 650
+SWEP.DamageMin = 650
+SWEP.MuzzleVelocity = 4000
 
 SWEP.Apex_Balance = {
     [1] = {
@@ -139,6 +137,7 @@ SWEP.IronSightStruct = {
         Pos = Vector(0, 0, 0),
         Ang = Angle(0, 0, 0),
     },
+	 CrosshairInSights = true,
 }
 
 
@@ -161,12 +160,10 @@ SWEP.BarrelOffsetSighted = Vector(0, 0, -1)
 SWEP.BarrelOffsetHip = Vector(2, 0, -2)
 SWEP.BarrelOffsetCrouch = Vector(0, 0, -2)
 
-SWEP.CustomizePos = Vector(4, 0, 3)
-SWEP.CustomizeAng = Angle(0, 10, 20)
+SWEP.CustomizePos = Vector(0, -5, -4)
+SWEP.CustomizeAng = Angle(40, 0, 0)
 
 SWEP.BarrelLength = 8
-
-SWEP.CrosshairInSights = true
 
 -- SWEP.AttachmentElements = {
     -- ["sight"] = {
@@ -281,12 +278,14 @@ SWEP.Animations = {
     ["ready"] = {
         Source = "draw",
         SoundTable = {
-            {p = 100, s = "weapons/p2020/smartpistol_reload_slideback_st_01.ogg", t = 15 / 30},
-            {p = 100, s = "weapons/p2020/smartpistol_reload_slideforward_st_01.ogg", t = 22 / 30}
+            {p = 100, s = "weapons/archer/player_archer_raise1.wav", t = 1 / 30},
     },
     },
     ["draw"] = {
         Source = "draw",
+		SoundTable = {
+        {p = 100, s = "weapons/archer/player_archer_raise1.wav", t = 1 / 30},
+    },
     },
     ["holster"] = {
         Source = "holster",
@@ -296,23 +295,29 @@ SWEP.Animations = {
     },
     ["enter_sight"] = {
         Source = "ads_in",
+		SoundTable = {
+        {p = 100, s = "weapons/archer/player_archer_ads_up.wav", t = 1 / 30},
+    },
     },
     ["fire_sight"] = {
         Source = "fire",
     },
     ["exit_sight"] = {
         Source = "ads_out",
-    },
-    ["bash"] = {
-        Source = {"melee"},
-        LHIK = true,
-        LHIKIn = 0,
-        LHIKOut = 0.6,
-        LHIKEaseOut = 0.4,
-        SoundTable = {
-            {s = "ArcCW_APEX.Melee.Swing.Punch", t = 0 / 30},
+		SoundTable = {
+        {p = 100, s = "weapons/archer/player_archer_ads_down.wav", t = 1 / 30},
     },
     },
+    -- ["bash"] = {
+        -- Source = {"melee"},
+        -- LHIK = true,
+        -- LHIKIn = 0,
+        -- LHIKOut = 0.6,
+        -- LHIKEaseOut = 0.4,
+        -- SoundTable = {
+            -- {s = "ArcCW_APEX.Melee.Swing.Punch", t = 0 / 30},
+    -- },
+    -- },
     ["reload"] = {
         Source = "reload",
 		Time = 4,
@@ -328,3 +333,10 @@ SWEP.Animations = {
 
 SWEP.TTTWeaponType = "weapon_zm_pistol"
 SWEP.TTTWeight = 100
+
+
+SWEP.Hook_ShouldNotFire = function(wep)
+    if (wep:GetState() != ArcCW.STATE_SIGHTS or wep:GetSightDelta() > 0) then
+        return true
+    end
+end
