@@ -22,12 +22,12 @@ SWEP.UseHands = true
 SWEP.CamAttachment = 2
 
 SWEP.ViewModel = "models/weapons/archer/v_archer_at.mdl"
-SWEP.WorldModel = "models/weapons/w_apex_p2020.mdl"
+SWEP.WorldModel = "models/weapons/archer/w_archer_at.mdl"
 SWEP.WorldModelOffset = {
-    pos = Vector(4.5, 1.5, 2.25),
+    pos = Vector(3, 1, -2),
     ang = Angle(-10, 0, 180),
     bone = "ValveBiped.Bip01_R_Hand",
-    scale = 1
+    scale = 1.15
 }
 
 SWEP.MirrorVMWM = false
@@ -147,8 +147,8 @@ SWEP.HoldtypeSights = "rpg"
 
 SWEP.AnimShoot = ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL
 
-SWEP.CrouchPos = Vector(-4.5, -3, 1.5)
-SWEP.CrouchAng = Angle(1.569, 0.88, -50.458)
+SWEP.CrouchPos = Vector(0, -3, 1.5)
+SWEP.CrouchAng = Angle(2, -15, 0)
 
 SWEP.SprintPos = Vector(0, -2, 1)
 SWEP.SprintAng = Angle(0, 0, 0)
