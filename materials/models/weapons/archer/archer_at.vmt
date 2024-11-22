@@ -5,8 +5,8 @@
     "$phongexponenttexture" "models\weapons\archer\archer_at_e"
 
     /////////////////
-    "$color2" "[1.8 1.8 1.8]"                                     //do not touch this
-    "$blendtintbybasealpha" "1"                             //do not touch this
+    "$color2" "[2 2 2]"                                     //do not touch this
+    "$blendtintbybasealpha" "0"                             //do not touch this
     /////////////////
 
     "$phong" "1"
