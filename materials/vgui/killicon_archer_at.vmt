@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+    "$basetexture" "vgui/killicon_archer_at"
+	"$translucent" "1"
+}

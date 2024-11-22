@@ -24,6 +24,6 @@ ENT.DragCoefficient = 0.1
 
 ENT.Force = 12000 -- for LVS support. fuckhuge because this thing is meant to take down titans
 
--- if CLIENT then
-    -- killicon.Add( "arccw_waw_rocket_panzer", "arccw/weaponicons/arccw_waw_panzerschreck", Color( 255, 255, 255, 255 ) )
--- end
+if CLIENT then
+    killicon.Add("arccw_titanf2_archer_rocket", "vgui/killicon_archer_at", Color(251, 85, 25, 255))
+end

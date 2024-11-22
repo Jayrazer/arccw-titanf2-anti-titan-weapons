@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+    "$basetexture" "vgui/archer_at"
+	"$translucent" "1"
+}
