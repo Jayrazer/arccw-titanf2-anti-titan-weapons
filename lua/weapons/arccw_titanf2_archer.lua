@@ -141,8 +141,8 @@ SWEP.IronSightStruct = {
 }
 
 
-SWEP.HoldtypeHolstered = "passive"
-SWEP.HoldtypeActive = "rpg"
+SWEP.HoldtypeHolstered = "pistol"
+SWEP.HoldtypeActive = "passive"
 SWEP.HoldtypeSights = "rpg"
 
 SWEP.AnimShoot = ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL
