@@ -11,7 +11,7 @@ SWEP.AdminOnly = false
 
 SWEP.PrintName = "Archer AT"
 SWEP.Trivia_Class = "Rocket Launcher"
-SWEP.Trivia_Desc = "Heavy rocket launcher developed during the Frontier war as an infantry-portable anti-titan weapon. This particular version comes standard with dumbfire anti-infantry rounds and lacks the lock-on capabilities of the anti-titan version. \nNeeds to be aimed in order to fire."
+SWEP.Trivia_Desc = "Heavy rocket launcher developed during the Frontier War that can fire a variety of different rocket payloads. Must be aimed to fire."
 SWEP.Trivia_Manufacturer = "Brockhaurd Manufacturing"
 
 SWEP.Slot = 4
@@ -287,7 +287,7 @@ SWEP.Animations = {
         TPAnim = ACT_HL2MP_GESTURE_RELOAD_AR2,
 		Framerate = 30,
         SoundTable = {
-            {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_02A.wav", t = 1 / 30},
+            {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_01A.wav", t = 1 / 30},
             {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_01B.wav", t = 12 / 30},
             {p = 100, s = "weapons/archer/wpn_archer_1p_reload_canisterin_2ch_v1_01.wav", t = 65 / 30},
     },

@@ -14,10 +14,10 @@ ENT.Model = "models/weapons/w_missile_closed.mdl"
 ENT.BoxSize = Vector(8, 4, 1)
 
 ENT.Damage = 650
-ENT.Radius = 300
+ENT.Radius = 350
 ENT.ImpactDamage = 3000
 
-ENT.FuseTime = 0.1
+ENT.FuseTime = 0.25
 ENT.Boost = 900
 ENT.Lift = 120
 ENT.DragCoefficient = 0.1
@@ -49,6 +49,7 @@ end
             explode:Fire( "kill", "", 30 )
             --util.Effect( "Explosion", effectdata)
             --self:EmitSound("phx/kaboom.wav", 125, 100, 1, CHAN_AUTO)
+            self:EmitSound("weapons/grenades/explode" .. math.random(1,3) .. ".wav", 120, 100, 1, CHAN_AUTO)
         end
 
         util.BlastDamage(self, IsValid(self:GetOwner()) and self:GetOwner() or self, self:GetPos(), self.Radius, self.DamageOverride or self.Damage)
