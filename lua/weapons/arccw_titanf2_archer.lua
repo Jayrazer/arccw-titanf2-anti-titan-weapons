@@ -130,7 +130,7 @@ SWEP.MuzzleEffectAttachment = 1 -- which attachment to put the muzzle on
 SWEP.CaseEffectAttachment = 2 -- which attachment to put the case effect on
 
 SWEP.IronSightStruct = {
-    Pos = Vector(0.005, 0, -0.05),
+    Pos = Vector(0.005, 0, -0.018),
     Ang = Angle(0, 0, 0),
     Magnification = 1.5,
         Midpoint = { -- Where the gun should be at the middle of it's irons
