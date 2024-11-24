@@ -90,7 +90,7 @@ SWEP.Firemodes = {
     {
         Mode = -2,
 		RunawayBurst = true,
-		PostBurstDelay = 0.3
+		PostBurstDelay = 0.5
     }
 }
 
@@ -321,8 +321,8 @@ SWEP.Animations = {
 		Framerate = 30,
         SoundTable = {
             {p = 100, s = soundpath .. "v2_1p_reload_pt1_2ch_v1.wav", t = 5 / 30},
-            {p = 100, s = soundpath .. "v2_1p_reload_pt2_2ch_v1.wav", t = 33 / 30},
-            {p = 100, s = soundpath .. "v2_1p_reload_pt3_2ch_v1.wav", t = 66 / 30},
+            {p = 100, s = soundpath .. "v2_1p_reload_pt2_2ch_v1.wav", t = 30 / 30},
+            {p = 100, s = soundpath .. "v2_1p_reload_pt3_2ch_v1.wav", t = 62 / 30},
             {p = 100, s = soundpath .. "v2_1p_reload_pt4_2ch_v1.wav", t = 83 / 30},
             {p = 100, s = soundpath .. "v2_1p_reload_pt5_2ch_v1.wav", t = 108 / 30},
 		},
@@ -334,8 +334,8 @@ SWEP.Animations = {
 		Framerate = 30,
         SoundTable = {
             {p = 100, s = soundpath .. "v2_1p_reload_pt1_2ch_v1.wav", t = 5 / 30},
-            {p = 100, s = soundpath .. "v2_1p_reload_pt2_2ch_v1.wav", t = 33 / 30},
-            {p = 100, s = soundpath .. "v2_1p_reload_pt3_2ch_v1.wav", t = 66 / 30},
+            {p = 100, s = soundpath .. "v2_1p_reload_pt2_2ch_v1.wav", t = 30 / 30},
+            {p = 100, s = soundpath .. "v2_1p_reload_pt3_2ch_v1.wav", t = 62 / 30},
             {p = 100, s = soundpath .. "v2_1p_reload_pt4_2ch_v1.wav", t = 83 / 30},
             {p = 100, s = soundpath .. "v2_1p_reload_pt5_2ch_v1.wav", t = 108 / 30},
 		},
