@@ -87,8 +87,17 @@ if SERVER then
             util.Effect( "WaterSurfaceExplosion", effectdata )
             --self:EmitSound("weapons/underwater_explode3.wav", 125, 100, 1, CHAN_AUTO)
         else
-            util.Effect( "Explosion", effectdata)
+			local explode = ents.Create( "info_particle_system" )
+            explode:SetKeyValue( "effect_name", "grenade_final" )
+            explode:SetOwner( self.Owner )
+            explode:SetPos( self:GetPos() )
+            explode:Spawn()
+            explode:Activate()
+            explode:Fire( "start", "", 0 )
+            explode:Fire( "kill", "", 30 )
+            --util.Effect( "Explosion", effectdata)
             --self:EmitSound("phx/kaboom.wav", 125, 100, 1, CHAN_AUTO)
+            self:EmitSound("weapons/grenades/explode" .. math.random(1,3) .. ".wav", 120, 100, 1, CHAN_AUTO)
         end
 
         util.BlastDamage(self, IsValid(self:GetOwner()) and self:GetOwner() or self, self:GetPos(), self.Radius, self.DamageOverride or self.Damage)
@@ -159,6 +168,12 @@ if SERVER then
             if IsValid(tgt:GetOwner()) and tgt:GetOwner():GetClass() == "npc_helicopter" then
                 tgt = tgt:GetOwner()
                 dmg:ScaleDamage(0.1)
+                dmg:SetDamageType(DMG_BLAST + DMG_AIRBOAT)
+                dmg:SetDamageForce(self:GetForward() * 100)
+            end
+			if IsValid(tgt:GetOwner()) and tgt:GetOwner():GetClass() == "npc_strider" then
+                tgt = tgt:GetOwner()
+                dmg:ScaleDamage(0.2)
                 dmg:SetDamageType(DMG_BLAST + DMG_AIRBOAT)
                 dmg:SetDamageForce(self:GetForward() * 100)
             end
