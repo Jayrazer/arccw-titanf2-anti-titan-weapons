@@ -27,3 +27,43 @@ ENT.Force = 12000 -- for LVS support.
 if CLIENT then
     killicon.Add("arccw_titanf2_archer_rocket", "vgui/killicon_archer_at", Color(251, 85, 25, 255))
 end
+
+if SERVER then
+
+	function ENT:Detonate()
+        if !self:IsValid() then return end
+        if self.Defused then return end
+		local dmginfo = DamageInfo()
+        local effectdata = EffectData()
+            effectdata:SetOrigin( self:GetPos() )
+
+        if self:WaterLevel() > 0 then
+            util.Effect( "WaterSurfaceExplosion", effectdata )
+            --self:EmitSound("weapons/underwater_explode3.wav", 125, 100, 1, CHAN_AUTO)
+        else
+            util.Effect( "Explosion", effectdata)
+            self:EmitSound("weapons/archer/explo_archer_close_3.wav", 125, 100, 1, CHAN_AUTO)
+        end
+
+        util.BlastDamage(self, IsValid(self:GetOwner()) and self:GetOwner() or self, self:GetPos(), self.Radius, self.DamageOverride or self.Damage)
+
+        if SERVER then
+            self:FireBullets({
+                Attacker = self,
+                Damage = 0,
+                Tracer = 0,
+                Distance = 256,
+                Dir = self.HitVelocity or self:GetVelocity(),
+                Src = self:GetPos(),
+                Callback = function(att, tr, dmg)
+					dmginfo:SetDamageType(DMG_AIRBOAT + DMG_SNIPER)
+					dmginfo:SetDamageForce(self:GetForward() * self.Force)
+                    util.Decal("Scorch", tr.StartPos, tr.HitPos - (tr.HitNormal * 16), self)
+                end
+            })
+        end
+        self.Defused = true
+        self:Remove()
+	end
+	
+end

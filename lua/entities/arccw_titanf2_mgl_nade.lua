@@ -30,7 +30,7 @@ end
 
 if SERVER then
 
-function ENT:Initialize()
+	function ENT:Initialize()
         local pb_vert = self.BoxSize[1]
         local pb_hor = self.BoxSize[2]
         self:SetModel(self.Model)
@@ -51,6 +51,42 @@ function ENT:Initialize()
         if self.SmokeTrail then
             util.SpriteTrail(self, 0, Color( 255 , 255 , 255 ), false, 6, 8, 0.2, 1 / (6 + 6) * 0.5, "particle/particle_smokegrenade1")
         end
-end
+	end
+
+	function ENT:Detonate()
+        if !self:IsValid() then return end
+        if self.Defused then return end
+		local dmginfo = DamageInfo()
+        local effectdata = EffectData()
+            effectdata:SetOrigin( self:GetPos() )
+
+        if self:WaterLevel() > 0 then
+            util.Effect( "WaterSurfaceExplosion", effectdata )
+            --self:EmitSound("weapons/underwater_explode3.wav", 125, 100, 1, CHAN_AUTO)
+        else
+            util.Effect( "Explosion", effectdata)
+            self:EmitSound("weapons/mgl/explo_mgl_close_2ch_v1_01.wav", 125, 100, 1, CHAN_AUTO)
+		end
+
+        util.BlastDamage(self, IsValid(self:GetOwner()) and self:GetOwner() or self, self:GetPos(), self.Radius, self.DamageOverride or self.Damage)
+
+        if SERVER then
+            self:FireBullets({
+                Attacker = self,
+                Damage = 0,
+                Tracer = 0,
+                Distance = 256,
+                Dir = self.HitVelocity or self:GetVelocity(),
+                Src = self:GetPos(),
+                Callback = function(att, tr, dmg)
+					dmginfo:SetDamageType(DMG_AIRBOAT + DMG_SNIPER)
+					dmginfo:SetDamageForce(self:GetForward() * self.Force)
+                    util.Decal("Scorch", tr.StartPos, tr.HitPos - (tr.HitNormal * 16), self)
+                end
+            })
+        end
+        self.Defused = true
+        self:Remove()
+	end
 
 end
