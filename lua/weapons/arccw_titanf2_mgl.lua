@@ -12,7 +12,7 @@ SWEP.AdminOnly = false
 SWEP.PrintName = "MGL Mag Launcher"
 SWEP.Trivia_Class = "Grenade Launcher"
 SWEP.Trivia_Desc = "Belt-fed grenade launcher that fires magnetic charges that can stick to armored targets."
-SWEP.Trivia_Manufacturer = "Wonyeon Defense"
+SWEP.Trivia_Manufacturer = "Wonyeon Interstellar"
 
 SWEP.Slot = 4
 
@@ -21,9 +21,9 @@ SWEP.UseHands = true
 SWEP.CamAttachment = 2
 
 SWEP.ViewModel = "models/weapons/mgl/v_mgl.mdl"
-SWEP.WorldModel = "models/weapons/archer/w_archer_at.mdl"
+SWEP.WorldModel = "models/weapons/mgl/w_mgl.mdl"
 SWEP.WorldModelOffset = {
-    pos = Vector(3, 1, -2),
+    pos = Vector(3.5, 1, 0.4),
     ang = Angle(-10, 0, 180),
     bone = "ValveBiped.Bip01_R_Hand",
     scale = 1.15
@@ -160,13 +160,13 @@ SWEP.IronSightStruct = {
 
 
 SWEP.HoldtypeHolstered = "passive"
-SWEP.HoldtypeActive = "ar2"
-SWEP.HoldtypeSights = "ar2"
+SWEP.HoldtypeActive = "smg"
+SWEP.HoldtypeSights = "smg"
 
-SWEP.AnimShoot = ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL
+SWEP.AnimShoot = ACT_HL2MP_GESTURE_RANGE_ATTACK_AR2
 
-SWEP.CrouchPos = Vector(0, -3, 1.5)
-SWEP.CrouchAng = Angle(2, -15, 0)
+SWEP.CrouchPos = Vector(-1.5, -3, 1)
+SWEP.CrouchAng = Angle(0, 0, -10)
 
 SWEP.SprintPos = Vector(0, -2, 1)
 SWEP.SprintAng = Angle(0, 0, 0)
@@ -190,7 +190,8 @@ SWEP.AttachmentElements = {
     },
 	
 	["tactical"] = {
-		VMBodygroups = {{ind = 5, bg = 1}}
+		VMBodygroups = {{ind = 5, bg = 1}},
+		WMBodygroups = {{ind = 2, bg = 1}}
 	}
 }
 -- SWEP.GuaranteeLaser = true
@@ -214,8 +215,8 @@ SWEP.Attachments = {
         Offset = {
             vpos = Vector(1.45, -3.5, 1.25), -- offset that the attachment will be relative to the bone
             vang = Angle(90, 0, -68),
-            wpos = Vector(1.2, 3, -10.9),
-            wang = Angle(-10, 0, 215)
+            wpos = Vector(11.5, 2.9, -5.8),
+            wang = Angle(-10, 0, 200)
         },
 		VMScale = Vector(0.3, 0.3, 0.3),
 		WMScale = Vector(0.3, 0.3, 0.3),
@@ -228,8 +229,8 @@ SWEP.Attachments = {
         Offset = {
             vpos = Vector(1.9, -3.3, 7.2), -- offset that the attachment will be relative to the bone
             vang = Angle(90, 0, -90),
-            wpos = Vector(3, 5, -10.3),
-            wang = Angle(-10, 0, 195)
+            wpos = Vector(11.5, 2.9, -5.8),
+            wang = Angle(-10, 0, 180)
         },
 		VMScale = Vector(1, 1, 1),
 		WMScale = Vector(1, 1, 1),
@@ -284,25 +285,25 @@ SWEP.Animations = {
     ["enter_sight"] = {
         Source = "ads_in",
 		SoundTable = {
-        {p = 100, s = "weapons/mgl/wpn_mgl_1p_ads_in_2ch_v1_02.wav", t = 0},
+        {p = 100, s = "weapons/mgl/wpn_mgl_1p_ads_in_2ch_v1_02.wav", t = 1 / 30},
     },
     },
     ["fire"] = {
         Source = "fire",
         SoundTable = {
-            {p = 100, soundpath .. "v2_1p_wpnfire_cyclemech_2ch_v1_01.wav", t = 0},
+            {p = 100, soundpath .. "v2_1p_wpnfire_cyclemech_2ch_v1_01.wav", t = 5 / 30},
     },
     },
     ["fire_sight"] = {
         Source = "fire_iron",
         SoundTable = {
-            {p = 100, s = soundpath .. "v2_1p_wpnfire_cyclemech_2ch_v1_01.wav", t = 0},
+            {p = 100, s = soundpath .. "v2_1p_wpnfire_cyclemech_2ch_v1_01.wav", t = 5 / 30},
     },
     },
     ["exit_sight"] = {
         Source = "ads_out",
 		SoundTable = {
-        {p = 100, s = "weapons/mgl/wpn_mgl_1p_ads_out_2ch_v1_02.wav", t = 0 },
+        {p = 100, s = "weapons/mgl/wpn_mgl_1p_ads_out_2ch_v1_02.wav", t = 1 / 30},
     },
     },
     -- ["bash"] = {
