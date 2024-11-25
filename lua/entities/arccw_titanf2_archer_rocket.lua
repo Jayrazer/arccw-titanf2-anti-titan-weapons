@@ -27,12 +27,14 @@ ENT.ImpactDamage = 150
 
 ENT.SteerSpeed = 120
 ENT.SeekerAngle = 180
+ENT.SeekerExplodeRange = 32
+ENT.SeekerExplodeSnapPosition = true
 
 ENT.LeadTarget = true
 ENT.SuperSteerTime = 1
 ENT.SuperSteerSpeed = 180
 
-ENT.MaxSpeed = 3000
+ENT.MaxSpeed = 2500
 ENT.Acceleration = 3000
 
 ENT.SteerDelay = 0.25

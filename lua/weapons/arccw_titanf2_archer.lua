@@ -331,7 +331,7 @@ end
 SWEP.LockOn = true
 SWEP.LockOnRequired = false
 SWEP.LockOnTime = 0.5
-SWEP.LockOnRange = 4096
+SWEP.LockOnRange = 10000
 SWEP.LockOnTrackAngle = 30
 
 SWEP.LockOnEntity = NULL
