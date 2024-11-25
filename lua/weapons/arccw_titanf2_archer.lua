@@ -1,5 +1,5 @@
 if CLIENT then
-	SWEP.WepSelectIcon = surface.GetTextureID("VGUI/archer_at")
+    SWEP.WepSelectIcon = surface.GetTextureID("VGUI/archer_at")
 end
 
 SWEP.ProneMod_DisableTransitions = true
@@ -74,7 +74,7 @@ SWEP.Num = 1 -- number of shots per trigger pull.
 SWEP.Firemodes = {
     {
         Mode = 1,
-		PrintName = "Single Shot"
+        PrintName = "Single Shot"
     }
 }
 
@@ -94,10 +94,10 @@ SWEP.ShootVol = 120 -- volume of shoot sound
 SWEP.ShootPitch = 100 -- pitch of shoot sound
 
 SWEP.ShootSound = {
-	"weapons/archer/wpn_archer_1p_wpnfire_core_2ch_v1_01.wav",
-	"weapons/archer/wpn_archer_1p_wpnfire_core_2ch_v1_02.wav",
-	"weapons/archer/wpn_archer_1p_wpnfire_core_2ch_v1_03.wav",
-	}
+    "weapons/archer/wpn_archer_1p_wpnfire_core_2ch_v1_01.wav",
+    "weapons/archer/wpn_archer_1p_wpnfire_core_2ch_v1_02.wav",
+    "weapons/archer/wpn_archer_1p_wpnfire_core_2ch_v1_03.wav",
+    }
 SWEP.ShootDrySound = "ArcCW_APEX.Pistol_Dry_D"
 SWEP.ShootSoundSilenced = ""
 SWEP.DistantShootSound = ""
@@ -137,7 +137,7 @@ SWEP.IronSightStruct = {
         Pos = Vector(0, 0, 0),
         Ang = Angle(0, 0, 0),
     },
-	 CrosshairInSights = false,
+     CrosshairInSights = false,
 }
 
 
@@ -195,8 +195,8 @@ SWEP.Attachments = {
             wpos = Vector(1.2, 3, -10.9),
             wang = Angle(-10, 0, 215)
         },
-		VMScale = Vector(0.3, 0.3, 0.3),
-		WMScale = Vector(0.3, 0.3, 0.3),
+        VMScale = Vector(0.3, 0.3, 0.3),
+        WMScale = Vector(0.3, 0.3, 0.3),
     },
     {
         PrintName = "Stats",
@@ -209,8 +209,8 @@ SWEP.Attachments = {
             wpos = Vector(3, 5, -10.3),
             wang = Angle(-10, 0, 195)
         },
-		VMScale = Vector(1, 1, 1),
-		WMScale = Vector(1, 1, 1),
+        VMScale = Vector(1, 1, 1),
+        WMScale = Vector(1, 1, 1),
     },
 }
 
@@ -245,7 +245,7 @@ SWEP.Animations = {
     },
     ["draw"] = {
         Source = "draw",
-		SoundTable = {
+        SoundTable = {
         {p = 100, s = "weapons/archer/player_archer_raise1.wav", t = 1 / 30},
     },
     },
@@ -257,17 +257,17 @@ SWEP.Animations = {
     },
     ["enter_sight"] = {
         Source = "ads_in",
-		SoundTable = {
+        SoundTable = {
         {p = 100, s = "weapons/archer/player_archer_ads_up.wav", t = 1 / 30},
     },
     },
     ["fire_sight"] = {
         Source = "fire",
-		Time = 0.15,
+        Time = 0.15,
     },
     ["exit_sight"] = {
         Source = "ads_out",
-		SoundTable = {
+        SoundTable = {
         {p = 100, s = "weapons/archer/player_archer_ads_down.wav", t = 1 / 30},
     },
     },
@@ -283,9 +283,9 @@ SWEP.Animations = {
     -- },
     ["reload"] = {
         Source = "reload",
-		Time = 4,
+        Time = 4,
         TPAnim = ACT_HL2MP_GESTURE_RELOAD_AR2,
-		Framerate = 30,
+        Framerate = 30,
         SoundTable = {
             {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_01A.wav", t = 1 / 30},
             {p = 100, s = "weapons/archer/Wpn_Archer_1p_Reload_CanisterOut_2ch_v2_01B.wav", t = 12 / 30},
@@ -301,5 +301,130 @@ SWEP.TTTWeight = 100
 SWEP.Hook_ShouldNotFire = function(wep)
     if (wep:GetState() != ArcCW.STATE_SIGHTS or wep:GetSightDelta() > 0) then
         return true
+    end
+    if wep:GetBuff("LockOn") and wep:GetBuff("LockOnRequired") and not (IsValid(wep:GetLockOnEntity()) and CurTime() >= wep:GetBuff("LockOnTime") + wep:GetLockOnStartTime()) then
+        return true
+    end
+end
+
+DEFINE_BASECLASS("arccw_apex_base")
+function SWEP:SetupDataTables()
+    BaseClass.SetupDataTables(self)
+
+    self:NetworkVar("Entity", 1, "LockOnEntity")
+    self:NetworkVar("Float", 10, "LockOnStartTime")
+end
+
+SWEP.Hook_Think = function(wep)
+    if wep:GetBuff("LockOn") then
+        wep:ThinkLockOn()
+    end
+end
+
+SWEP.Hook_PostFireRocket = function(wep, rocket)
+    if wep:GetBuff("LockOn") and IsValid(wep:GetLockOnEntity()) and CurTime() >= wep:GetBuff("LockOnTime") + wep:GetLockOnStartTime() then
+        rocket.LockOnEntity = wep:GetLockOnEntity()
+        rocket:SwitchTarget(wep:GetLockOnEntity())
+    end
+end
+
+SWEP.LockOn = true
+SWEP.LockOnRequired = false
+SWEP.LockOnTime = 0.5
+SWEP.LockOnRange = 4096
+SWEP.LockOnTrackAngle = 30
+
+SWEP.LockOnEntity = NULL
+SWEP.LastSearchTime = 0
+SWEP.PlayedLockOnSound = false
+
+function SWEP:ThinkLockOn()
+    local owner = self:GetOwner()
+    local lastlockonentity = self:GetLockOnEntity()
+
+    if CLIENT then
+        if not IsValid(self:GetLockOnEntity()) then
+            self.PlayedLockOnSound = false
+        end
+    end
+
+    if self:GetState() != ArcCW.STATE_SIGHTS or self:GetSightDelta() > 0 then
+        self:SetLockOnEntity(nil)
+        self:SetLockOnStartTime(CurTime())
+    else
+        local lockontarget = nil
+
+        if lastlockonentity and IsValid(lastlockonentity) then
+            -- check if it remains within seeker cage
+
+            local player_aim_vector = owner:GetAimVector()
+            local target_angle = math.deg(math.acos(player_aim_vector:Dot((lastlockonentity:WorldSpaceCenter() - owner:GetShootPos()):GetNormalized())))
+
+            local dist = (lastlockonentity:WorldSpaceCenter() - owner:GetShootPos()):Length()
+
+            if target_angle < self:GetBuff("LockOnTrackAngle") and dist < self:GetBuff("LockOnRange") then
+                lockontarget = lastlockonentity
+            end
+        else
+            local tr = util.TraceHull(
+                {
+                    start = owner:GetShootPos(),
+                    endpos = owner:GetShootPos() + owner:GetAimVector() * self:GetBuff("LockOnRange"),
+                    ignoreworld = true,
+                    filter = function(target)
+                        if target == owner then return false end
+                        if target:IsPlayer() then return true end
+                        if (target:IsNPC() or target:IsNextBot()) then return true end
+                        if (target.LVS and target:GetHP() > 0) or target.Targetable then return true end
+                    end,
+                    mins = Vector(-192, -192, -128),
+                    maxs = Vector(192, 192, 128),
+                }
+            )
+
+            lockontarget = tr.Entity
+        end
+
+        if lockontarget and IsValid(lockontarget) then
+            local occlusion_tr = util.TraceLine({
+                start = owner:GetShootPos(),
+                endpos = lockontarget:WorldSpaceCenter(),
+                mask = MASK_SHOT,
+                filter = function(ent)
+                    if ent == lockontarget or ent == owner or ent:GetOwner() == lockontarget then return false end
+                    if ent:IsVehicle() and ent:GetDriver() == owner then return false end
+                    if ent:GetClass() == "lvs_wheeldrive_wheel" then return false end
+                    return true
+                end
+            })
+            if occlusion_tr.Hit then lockontarget = nil end
+        end
+
+        if lockontarget and IsValid(lockontarget) then
+            if lastlockonentity != lockontarget then
+                self:SetLockOnStartTime(CurTime())
+                if CLIENT and (IsFirstTimePredicted() or game.SinglePlayer()) then
+                    -- self:EmitSound(self:GetBuff("Sound_StartLockOn"))
+                end
+            elseif not self.PlayedLockOnSound and CurTime() > self:GetLockOnStartTime() + self:GetBuff("LockOnTime") then
+                if CLIENT and (IsFirstTimePredicted() or game.SinglePlayer()) then
+                    -- self:EmitSound(self:GetBuff("Sound_FinishLockOn"))
+                    self.PlayedLockOnSound = true
+                    print("locked " .. tostring(self.LockOnEntity))
+                end
+            end
+            self:SetLockOnEntity(lockontarget)
+            self.LockOnEntity = lockontarget
+            -- print(tostring(self.LockOnEntity) .. " " .. math.Round(CurTime() - self:GetLockOnStartTime(), 1))
+        else
+            self:SetLockOnEntity(nil)
+            self.PlayedLockOnSound = false
+            self:SetLockOnStartTime(CurTime())
+        end
+    end
+
+    if not IsValid(self:GetLockOnEntity()) then
+        self:SetLockOnEntity(nil)
+        self:SetLockOnStartTime(CurTime())
     end
 end

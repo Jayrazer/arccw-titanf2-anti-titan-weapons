@@ -1,69 +1,77 @@
 AddCSLuaFile()
 
-ENT.Type 				= "anim"
-ENT.Base 				= "arccw_titanf2_projectile_base"
-ENT.PrintName 			= "Archer Rocket"
-ENT.Author 				= ""
-ENT.Information 		= ""
+ENT.Base                     = "arccw_titanf2_projectile_base"
+ENT.PrintName                = "Archer Rocket"
+ENT.Spawnable                = false
 
-ENT.Spawnable = false
-ENT.AdminSpawnable = false
-
-
-ENT.Model = "models/weapons/w_missile_closed.mdl"
-ENT.BoxSize = Vector(8, 4, 1)
-
-ENT.Damage = 650
-ENT.Radius = 350
-ENT.ImpactDamage = 3000
-
-ENT.FuseTime = 0.25
-ENT.Boost = 900
-ENT.Lift = 120
-ENT.DragCoefficient = 0.1
-
-ENT.Force = 12000 -- for LVS support.
+ENT.Model                    = "models/weapons/w_missile_closed.mdl"
 
 if CLIENT then
     killicon.Add("arccw_titanf2_archer_rocket", "vgui/killicon_archer_at", Color(251, 85, 25, 255))
 end
 
-if SERVER then
+ENT.IsRocket = true // projectile has a booster and will not drop.
 
-	function ENT:Detonate()
-        if !self:IsValid() then return end
-        if self.Defused then return end
-		local dmginfo = DamageInfo()
-        local effectdata = EffectData()
-            effectdata:SetOrigin( self:GetPos() )
+ENT.InstantFuse = false // projectile is armed immediately after firing.
+ENT.RemoteFuse = false // allow this projectile to be triggered by remote detonator.
+ENT.ImpactFuse = true // projectile explodes on impact.
 
-        if self:WaterLevel() > 0 then
-            util.Effect( "WaterSurfaceExplosion", effectdata )
-            --self:EmitSound("weapons/underwater_explode3.wav", 125, 100, 1, CHAN_AUTO)
-        else
-            util.Effect( "Explosion", effectdata)
-            self:EmitSound("weapons/archer/explo_archer_close_3.wav", 125, 100, 1, CHAN_AUTO)
-        end
+ENT.ExplodeOnDamage = true
+ENT.ExplodeUnderwater = true
 
-        util.BlastDamage(self, IsValid(self:GetOwner()) and self:GetOwner() or self, self:GetPos(), self.Radius, self.DamageOverride or self.Damage)
+ENT.GunshipWorkaround = false
 
-        if SERVER then
-            self:FireBullets({
-                Attacker = self,
-                Damage = 0,
-                Tracer = 0,
-                Distance = 256,
-                Dir = self.HitVelocity or self:GetVelocity(),
-                Src = self:GetPos(),
-                Callback = function(att, tr, dmg)
-					dmginfo:SetDamageType(DMG_AIRBOAT + DMG_SNIPER)
-					dmginfo:SetDamageForce(self:GetForward() * self.Force)
-                    util.Decal("Scorch", tr.StartPos, tr.HitPos - (tr.HitNormal * 16), self)
-                end
-            })
-        end
-        self.Defused = true
-        self:Remove()
-	end
-	
+ENT.Delay = 0
+ENT.SafetyFuse = 0.1
+ENT.ImpactDamage = 150
+
+ENT.SteerSpeed = 120
+ENT.SeekerAngle = 180
+
+ENT.LeadTarget = true
+ENT.SuperSteerTime = 1
+ENT.SuperSteerSpeed = 180
+
+ENT.MaxSpeed = 3000
+ENT.Acceleration = 3000
+
+ENT.SteerDelay = 0.25
+ENT.FlareRedirectChance = 0.2
+
+ENT.AudioLoop = ""
+
+ENT.SmokeTrail = true
+
+ENT.FlareColor = Color(255, 255, 255)
+
+DEFINE_BASECLASS(ENT.Base)
+
+function ENT:Detonate(ent)
+    local attacker = self.Attacker or self:GetOwner()
+    local dir = self:GetForward()
+    local src = self:GetPos() - dir * 64
+
+    local mult = TacRP.ConVars["mult_damage_explosive"]:GetFloat()
+    local dmg = DamageInfo()
+    dmg:SetAttacker(attacker)
+    dmg:SetDamageType(DMG_BLAST + DMG_AIRBOAT)
+    dmg:SetInflictor(self)
+    dmg:SetDamageForce(self:GetVelocity() * 100)
+    dmg:SetDamagePosition(src)
+    dmg:SetDamage(100 * mult)
+    util.BlastDamageInfo(dmg, self:GetPos(), 256)
+    self:ImpactTraceAttack(ent, 500 * mult, 100)
+
+    local fx = EffectData()
+    fx:SetOrigin(self:GetPos())
+
+    if self:WaterLevel() > 0 then
+        util.Effect("WaterSurfaceExplosion", fx)
+    else
+        util.Effect("Explosion", fx)
+    end
+
+    self:EmitSound("weapons/archer/explo_archer_close_3.wav", 125, 100, 1, CHAN_AUTO)
+
+    self:Remove()
 end
