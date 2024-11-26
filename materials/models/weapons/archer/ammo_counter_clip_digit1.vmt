@@ -1,4 +1,4 @@
-"VertexLitGeneric"
+"UnlitGeneric"
 {
 	"$surfaceprop" "plastic"
 
@@ -17,7 +17,7 @@
 	{
 		ArcCW_AMMO
 		{
-			resultVar 2
+			resultVar 0
 			prefixstring "ammocounter/plate_p2020/numbers_plate"
 		}
 	}

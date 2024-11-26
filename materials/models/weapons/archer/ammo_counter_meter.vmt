@@ -1,13 +1,13 @@
-"VertexLitGeneric"
+"UnlitGeneric"
 {
 	"$surfaceprop" "default"
 
 	"$basetexture" "models\weapons\archer\ammo_counter_meter_col"
 	"$selfillummask" "models\weapons\archer\ammo_counter_meter_ilm"
-	"$translucent" "1"
+	"$translucent" "0"
 	//"$selfillum" "1"
 	"$decal" 1 
-	"$decalscale" 0.25
+	"$decalscale" 0
 	
 	"$remainingAmmo" "0"
 	"$maxCarryAmmo" "0"
@@ -16,7 +16,7 @@
 	{
 	ArcCW_AMMO
 		{
-			resultVar 2
+			resultVar 0
 			prefixstring "ammocounter/plate_p2020/numbers_plate"
 		}
 	}
