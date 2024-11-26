@@ -5,19 +5,8 @@
 	"$basetexture" "models\weapons\archer\ammo_counter_meter_col"
 	"$selfillummask" "models\weapons\archer\ammo_counter_meter_ilm"
 	"$translucent" "0"
-	//"$selfillum" "1"
-	"$decal" 1 
-	"$decalscale" 0
+	"blendtintbybasealpha" "1"
 	
-	"$remainingAmmo" "0"
-	"$maxCarryAmmo" "0"
+	"color2" "[ 1 1 5 ]"
 	
-	"Proxies"
-	{
-	ArcCW_AMMO
-		{
-			resultVar 0
-			prefixstring "ammocounter/plate_p2020/numbers_plate"
-		}
-	}
 }
