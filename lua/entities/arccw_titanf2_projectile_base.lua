@@ -561,9 +561,3 @@ function ENT:SwitchTarget(target)
         end
     end
 end
-
-hook.Add("EntityTakeDamage", "tacrp_proj_collision", function(ent, dmginfo)
-    if IsValid(dmginfo:GetInflictor())
-            and scripted_ents.IsBasedOn(dmginfo:GetInflictor():GetClass(), "tacrp_proj_base")
-            and dmginfo:GetDamageType() == DMG_CRUSH then dmginfo:SetDamage(0) return true end
-end)

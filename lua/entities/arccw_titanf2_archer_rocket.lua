@@ -53,7 +53,7 @@ function ENT:Detonate(ent)
     local dir = self:GetForward()
     local src = self:GetPos() - dir * 64
 
-    local mult = TacRP.ConVars["mult_damage_explosive"]:GetFloat()
+    local mult = 1
     local dmg = DamageInfo()
     dmg:SetAttacker(attacker)
     dmg:SetDamageType(DMG_BLAST + DMG_AIRBOAT)
