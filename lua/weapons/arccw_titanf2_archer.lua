@@ -101,6 +101,8 @@ SWEP.ShootSound = {
 SWEP.ShootDrySound = "ArcCW_APEX.Pistol_Dry_D"
 SWEP.ShootSoundSilenced = ""
 SWEP.DistantShootSound = ""
+SWEP.Sound_StartLockOn = "weapons/titanf2common/LAW_lockon_acquired_longer.wav"
+SWEP.Sound_FinishLockOn = "weapons/titanf2common/wpn_shoulderrocket_homing_1p_targetlockedloop_2ch_v1_01.wav"
 
 local s = "weapons/fx/wpn_lowammo_pistol1_triggerf_2ch_v1_01.wav"
 local p = {
@@ -330,7 +332,7 @@ end
 
 SWEP.LockOn = true
 SWEP.LockOnRequired = false
-SWEP.LockOnTime = 0.5
+SWEP.LockOnTime = 1.25
 SWEP.LockOnRange = 10000
 SWEP.LockOnTrackAngle = 30
 
@@ -404,11 +406,11 @@ function SWEP:ThinkLockOn()
             if lastlockonentity != lockontarget then
                 self:SetLockOnStartTime(CurTime())
                 if CLIENT and (IsFirstTimePredicted() or game.SinglePlayer()) then
-                    -- self:EmitSound(self:GetBuff("Sound_StartLockOn"))
+                    self:EmitSound(self:GetBuff("Sound_StartLockOn"))
                 end
             elseif not self.PlayedLockOnSound and CurTime() > self:GetLockOnStartTime() + self:GetBuff("LockOnTime") then
                 if CLIENT and (IsFirstTimePredicted() or game.SinglePlayer()) then
-                    -- self:EmitSound(self:GetBuff("Sound_FinishLockOn"))
+                    self:EmitSound(self:GetBuff("Sound_FinishLockOn"))
                     self.PlayedLockOnSound = true
                     print("locked " .. tostring(self.LockOnEntity))
                 end
