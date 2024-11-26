@@ -9,7 +9,7 @@ SWEP.Spawnable = true -- this obviously has to be set to true
 SWEP.Category = "ArcCW - Titanfall 2" -- edit this if you like
 SWEP.AdminOnly = false
 
-SWEP.PrintName = "MGL Mag Launcher"
+SWEP.PrintName = "MGL"
 SWEP.Trivia_Class = "Grenade Launcher"
 SWEP.Trivia_Desc = "Belt-fed grenade launcher that fires magnetic charges that can stick to armored targets."
 SWEP.Trivia_Manufacturer = "Wonyeon Interstellar"
