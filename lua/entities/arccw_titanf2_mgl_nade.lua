@@ -20,12 +20,20 @@ ENT.SmokeTrail = true
 ENT.Delay = 1.25
 
 function ENT:Detonate(ent)
-    local attacker = self.Attacker or self:GetOwner() or self
-    local mult = 1
-    local dmg = 150
+    local attacker = self.Attacker or self:GetOwner()
+    local dir = self:GetForward()
+    local src = self:GetPos() - dir * 64
 
-    util.BlastDamage(self, attacker, self:GetPos(), 300, dmg * mult)
-    self:ImpactTraceAttack(ent, dmg * mult, 100)
+    local mult = 1
+    local dmg = DamageInfo()
+    dmg:SetAttacker(attacker)
+    dmg:SetDamageType(DMG_BLAST + DMG_AIRBOAT)
+    dmg:SetInflictor(self)
+    dmg:SetDamageForce(self:GetVelocity() * 100)
+    dmg:SetDamagePosition(src)
+    dmg:SetDamage(150 * mult)
+    util.BlastDamageInfo(dmg, self:GetPos(), 300)
+    self:ImpactTraceAttack(ent, 500 * mult, 100)
 
     local fx = EffectData()
     fx:SetOrigin(self:GetPos())

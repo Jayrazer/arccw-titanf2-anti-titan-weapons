@@ -10,7 +10,7 @@ SWEP.Category = "ArcCW - Titanfall 2" -- edit this if you like
 SWEP.AdminOnly = false
 
 SWEP.PrintName = "Archer"
-SWEP.Trivia_Class = "Rocket Launcher"
+SWEP.Trivia_Class = "Heavy Rocket"
 SWEP.Trivia_Desc = "Heavy rocket launcher developed during the Frontier War that can fire a variety of different rocket payloads. Must be aimed to fire."
 SWEP.Trivia_Manufacturer = "Brockhaurd Manufacturing"
 
