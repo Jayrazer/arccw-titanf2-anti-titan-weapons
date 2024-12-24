@@ -126,7 +126,7 @@ function ENT:Detonate(ent)
     fx:SetOrigin(self:GetPos())
 
     if self:WaterLevel() > 0 then
-        util.Effect("WaterSurfaceExplosion", fx)
+        util.Effect("watersplash", fx)
     else
         util.Effect("HelicopterMegaBomb", fx)
     end
@@ -147,7 +147,7 @@ function ENT:DoSmokeTrail()
 
         local smoke = emitter:Add(GetSmokeImage(), self:GetPos())
 
-        smoke:SetStartAlpha(40)
+        smoke:SetStartAlpha(64)
         smoke:SetEndAlpha(0)
 
         smoke:SetStartSize(2)
@@ -160,12 +160,26 @@ function ENT:DoSmokeTrail()
         smoke:SetVelocity(-self:GetAngles():Forward() * 400 + (VectorRand() * 10))
 
         smoke:SetColor(255, 255, 255)
-        smoke:SetLighting(true)
+        smoke:SetLighting(false)
 
         smoke:SetDieTime(math.Rand(0.25, 0.6))
 
         smoke:SetGravity(Vector(0, 0, 0))
 
         emitter:Finish()
+    end
+end
+
+local mat = Material("effects/blueflare1")
+
+function ENT:Draw()
+    if self:GetOwner() == LocalPlayer() and (self.SpawnTime + 0.05) > CurTime() then return end
+
+    self:DrawModel()
+
+    if self.FlareColor then
+        local mult = self.SafetyFuse and math.Clamp((CurTime() - (self.SpawnTime + self.SafetyFuse)) / self.SafetyFuse, 0.1, 1) or 1
+        render.SetMaterial(mat)
+        render.DrawSprite(self:GetPos() + (self:GetAngles():Forward() * -16), mult * math.Rand(self.FlareSizeMin, self.FlareSizeMax), mult * math.Rand(self.FlareSizeMin, self.FlareSizeMax), self.FlareColor)
     end
 end
