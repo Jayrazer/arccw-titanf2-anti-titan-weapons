@@ -4,7 +4,7 @@ ENT.Base                     = "arccw_titanf2_projectile_base"
 ENT.PrintName                = "Sidewinder Missile"
 ENT.Spawnable                = false
 
-ENT.Model                    = "models/weapons/w_missile_closed.mdl"
+ENT.Model                    = "models/items/ar2_grenade.mdl"
 
 if CLIENT then
     killicon.Add("arccw_titanf2_sidewinder_missile", "vgui/killicon_archer_at", Color(251, 85, 25, 255))
@@ -50,6 +50,61 @@ ENT.FlareSizeMin = 50
 ENT.FlareSizeMax = 75
 
 DEFINE_BASECLASS(ENT.Base)
+
+function ENT:Initialize()
+    if SERVER then
+        self:SetModel(self.Model)
+        self:SetMaterial(self.Material or "")
+        if self.CollisionSphere then
+            self:PhysicsInitSphere(self.CollisionSphere)
+        else
+            self:PhysicsInit(SOLID_VPHYSICS)
+        end
+        self:SetMoveType(MOVETYPE_VPHYSICS)
+        self:SetSolid(SOLID_VPHYSICS)
+
+        self:SetCollisionGroup(COLLISION_GROUP_PROJECTILE)
+        if self.Defusable then
+            self:SetUseType(SIMPLE_USE)
+        end
+
+        local phys = self:GetPhysicsObject()
+        if !phys:IsValid() then
+            self:Remove()
+            return
+        end
+
+        phys:EnableDrag(false)
+        phys:SetDragCoefficient(0)
+        phys:SetBuoyancyRatio(0)
+        phys:Wake()
+
+        if self.IsRocket then
+            phys:EnableGravity(false)
+        end
+
+        self:SwitchTarget(self.LockOnEntity)
+    end
+
+    self.SpawnTime = CurTime()
+    self.NextFlareRedirectTime = 0
+
+    self.NPCDamage = IsValid(self:GetOwner()) and self:GetOwner():IsNPC()
+
+    if self.AudioLoop then
+        self.LoopSound = CreateSound(self, self.AudioLoop)
+        self.LoopSound:Play()
+    end
+
+    if self.InstantFuse then
+        self.ArmTime = CurTime()
+        self.Armed = true
+    end
+	
+	self:EmitSound("weapons/sidewinder/arl_ignite_3.wav", 125, 100, 1, CHAN_AUTO)
+
+    self:OnInitialize()
+end
 
 function ENT:Detonate(ent)
     local attacker = self.Attacker or self:GetOwner()
@@ -104,7 +159,7 @@ function ENT:DoSmokeTrail()
         smoke:SetPos(self:GetPos())
         smoke:SetVelocity(-self:GetAngles():Forward() * 400 + (VectorRand() * 10))
 
-        smoke:SetColor(200, 200, 200)
+        smoke:SetColor(255, 255, 255)
         smoke:SetLighting(true)
 
         smoke:SetDieTime(math.Rand(0.25, 0.6))

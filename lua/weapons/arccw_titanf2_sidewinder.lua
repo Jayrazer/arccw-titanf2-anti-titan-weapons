@@ -133,7 +133,8 @@ SWEP.Hook_AddShootSound = function(wep, data)
     end
 end
 
-SWEP.MuzzleEffect = "tfa_apex_muzzle_pistol"
+SWEP.MuzzleEffect = false
+SWEP.MuzzleLight = false
 
 SWEP.Tracer = "arccw_apex_tracer_pistol" -- override tracer (hitscan) effect
 SWEP.TracerNum = 1 -- tracer every X
@@ -292,15 +293,15 @@ SWEP.Animations = {
     },
     ["fire"] = {
         Source = "fire",
-        SoundTable = {
-            {p = 100, soundpath .. "ignite_2.wav", t = 2 / 30},
-    },
+        -- SoundTable = {
+            -- {p = 150, soundpath .. "ignite_3.wav", t = 2 / 30},
+    -- },
     },
     ["fire_sight"] = {
-        Source = "fire_ads",
-        SoundTable = {
-            {p = 100, s = soundpath .. "ignite_2.wav", t = 2 / 30},
-    },
+        Source = "fire",
+        -- SoundTable = {
+            -- {p = 150, s = soundpath .. "ignite_3.wav", t = 1 / 30},
+    -- },
     },
     ["exit_sight"] = {
         Source = "ads_out",
@@ -356,46 +357,3 @@ SWEP.Animations = {
 
 SWEP.TTTWeaponType = "weapon_zm_pistol"
 SWEP.TTTWeight = 100
-
--- SWEP.Hook_ModifyBodygroups = function(wep, data) -- my incredibly stupid bulletbgs hack since the actual bullet bgs function appears to be broken
-    -- local vm = data.vm
-	-- local clip = wep:Clip1()
-	
-	-- if clip == 0 then 
-        -- vm:SetBodygroup(3, 0)
-    -- end
-	
-	-- if clip == 1 then 
-        -- vm:SetBodygroup(3, 1)
-    -- end
-	
-	-- if clip == 2 then 
-        -- vm:SetBodygroup(3, 2)
-    -- end
-	
-	-- if clip == 3 then 
-        -- vm:SetBodygroup(3, 3)
-    -- end
-	
-	-- if clip == 4 then 
-        -- vm:SetBodygroup(3, 4)
-    -- end
-	
-	-- if clip == 5 then 
-        -- vm:SetBodygroup(3, 5)
-    -- end
-	
-	-- if clip == 6 then 
-        -- vm:SetBodygroup(3, 6)
-    -- end
-	
-	-- if clip == 7 then 
-        -- vm:SetBodygroup(3, 7)
-    -- end
-	
-	-- if clip == 8 then 
-        -- vm:SetBodygroup(3, 8)
-    -- end
-	
-	
--- end
